@@ -44,6 +44,9 @@ namespace Messenger.ViewModel
 
             // Set the default title.
             this.SetSubtitle();
+
+            // Initialize the inject script service.
+            this.injectScriptService.InitializeAsync();
         }
 
         private readonly IExternalProcessService externalProcessService;
@@ -92,6 +95,7 @@ namespace Messenger.ViewModel
             // Display the browser.
             await Task.Delay(TimeSpan.FromSeconds(.5));
             this.IsLoading = false;
+            this.Browser.SetFocus(false);
         }
 
         #endregion

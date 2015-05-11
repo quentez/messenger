@@ -42,7 +42,7 @@
     </i:Interaction.Behaviors>
     
     <Grid Background="White">
-        <controls:FrontLogo DataContext="#B8C8CD" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />
+        <controls:MessengerLogo DataContext="#B8C8CD" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" />
         <WindowsFormsHost Height="{Binding IsLoading, Converter={StaticResource InvertedBoolToHeight}}">
             <i:Interaction.Behaviors>
                 <uiBehaviors:AttachChild Control="{Binding Browser}"/>

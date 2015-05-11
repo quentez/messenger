@@ -1,6 +1,4 @@
-﻿using System;
-using System.ServiceModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;

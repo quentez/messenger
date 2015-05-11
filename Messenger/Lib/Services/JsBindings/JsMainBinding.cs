@@ -35,7 +35,7 @@ namespace Messenger.Lib.Services.JsBindings
         {
             // Use the notifications service to display this notification on the desktop.
             this.notificationsService.ShowNotification(
-                this.textHelpers.SanitizeInput(title), 
+                this.textHelpers.SanitizeInput(title),
                 this.textHelpers.SanitizeInput(description), 
                 this.textHelpers.SanitizeInput(conversationId));
         }

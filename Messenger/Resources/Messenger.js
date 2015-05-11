@@ -86,12 +86,15 @@
         var subTitle = subtitleObject ? subtitleObject.textContent : "";
 
         // Find the conversation id.
-        var idObject = document.querySelector("._1ht1._1ht3");
-        var id = idObject ? idObject.getAttribute("data-reactid") : "";
+        var id = firstUnreadConversation.getAttribute("data-reactid");
+
+        // Find the image, if any.
+        var imgObject = firstUnreadConversation.querySelector("img.img");
+        var img = imgObject ? imgObject.src : null;
 
         // Check if we already notified for this.
         var signature = title + subTitle + id;
-        if (signature === lastNotification)
+        if (signature === lastNotification) 
             return;
 
         // If this is the first run, don't send an actual notification.

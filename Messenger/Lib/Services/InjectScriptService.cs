@@ -1,27 +1,50 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows;
+using Messenger.Lib.Infrastructure;
 
 namespace Messenger.Lib.Services
 {
     class InjectScriptService : IInjectScriptService
     {
+        public InjectScriptService()
+        {
+            this.initializeLock = new AsyncLock();
+        }
+        
+        private readonly AsyncLock initializeLock;
+        private string customScript;
+
         public Task InitializeAsync()
         {
-            throw new System.NotImplementedException();
+            return this.GetScriptAsync();
         }
 
         public async Task<string> GetScriptAsync()
         {
-            using (var cssFile = File.OpenText("Resources/Messenger.css"))
-            using (var jsFile = File.OpenText("Resources/Messenger.js"))
+            using (await this.initializeLock.LockAsync())
             {
-                // Read the files.
-                var cssContent = await cssFile.ReadToEndAsync();
-                var jsContent = await jsFile.ReadToEndAsync();
+                // If we already built the script, return it directly.
+                if (!string.IsNullOrWhiteSpace(this.customScript))
+                    return this.customScript;
 
-                // Combine them and return.
-                return $"window.messengerCSS = \"{HttpUtility.JavaScriptStringEncode(cssContent)}\";\n {jsContent}";
+                // Otherwise, build it from our resources.
+                using (var cssStream = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Messenger.css")).Stream)
+                using (var jsStream = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Messenger.js")).Stream)
+                using (var cssReader = new StreamReader(cssStream))
+                using (var jsRead = new StreamReader(jsStream))
+                {
+                    // Read the files.
+                    var cssContent = await cssReader.ReadToEndAsync();
+                    var jsContent = await jsRead.ReadToEndAsync();
+
+                    // Combine them and return.
+                    this.customScript = $"window.messengerCSS = \"{HttpUtility.JavaScriptStringEncode(cssContent)}\";\n {jsContent}";
+                    return this.customScript;
+                }
             }
         }
     }

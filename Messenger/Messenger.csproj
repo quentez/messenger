@@ -81,14 +81,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Front.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Messenger.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8953C130D43809B6BE457E50B2B25F47667BE10C</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>453A590D6BAC4B17E512B03C420B7351A8A30D42</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
+    <ManifestKeyFile>Messenger_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -194,8 +193,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\FrontLogo.xaml.cs">
-      <DependentUpon>FrontLogo.xaml</DependentUpon>
+    <Compile Include="Controls\MessengerLogo.xaml.cs">
+      <DependentUpon>MessengerLogo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\NotificationItem.xaml.cs">
       <DependentUpon>NotificationItem.xaml</DependentUpon>
@@ -205,6 +204,8 @@
     </Compile>
     <Compile Include="Lib\Helpers\ITextHelpers.cs" />
     <Compile Include="Lib\Helpers\TextHelpers.cs" />
+    <Compile Include="Lib\Infrastructure\AsyncLock.cs" />
+    <Compile Include="Lib\Infrastructure\AsyncSemaphore.cs" />
     <Compile Include="Lib\Infrastructure\Ensure.cs" />
     <Compile Include="Lib\Services\AppConstants.cs" />
     <Compile Include="Lib\Services\DialogsService.cs" />
@@ -256,7 +257,7 @@
     <Compile Include="Windows\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\FrontLogo.xaml">
+    <Page Include="Controls\MessengerLogo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +309,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Messenger_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -339,13 +341,9 @@
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <Visible>false</Visible>
     </Content>
-    <None Include="Resources\Messenger.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Messenger.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Resource Include="Resources\Front.ico" />
+    <Resource Include="Resources\Messenger.ico" />
+    <Resource Include="Resources\Messenger.css" />
+    <Resource Include="Resources\Messenger.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(SolutionDir)dependencies\*">

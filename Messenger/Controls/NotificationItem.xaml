@@ -45,7 +45,7 @@
             <ResumeStoryboard BeginStoryboardName="Lifecycle_BeginStoryboard"/>
         </EventTrigger>
     </UserControl.Triggers>
-    <Border x:Name="BorderRoot" BorderThickness="1,1,0,1" Background="White" BorderBrush="#FF910000"
+    <Border x:Name="BorderRoot" BorderThickness="1,1,0,1" Background="White" BorderBrush="#0084ff"
             uiAttachedProperties:StoryboardHelpers.TargetStoryboard="{Binding ., Source={StaticResource Lifecycle}}"
             uiAttachedProperties:StoryboardHelpers.StoryboardCompleted="{Binding LifecycleCompletedCommand}"
             Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibility}}">
@@ -80,11 +80,11 @@
                 <RowDefinition/>
                 <RowDefinition Height="2"/>
             </Grid.RowDefinitions>
-            <controls:FrontLogo DataContext="#FF910000" HorizontalAlignment="Left" Margin="10,1,10,0" Grid.RowSpan="2" VerticalAlignment="Center" Width="30"/>
+            <controls:MessengerLogo DataContext="#0084ff" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.RowSpan="2" VerticalAlignment="Center" Width="34"/>
             <TextBlock Grid.Column="1" Margin="0,10,20,0" Text="{Binding Title}" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="16" TextTrimming="CharacterEllipsis"/>
             <TextBlock Grid.Column="1" Margin="0,2,20,8" TextWrapping="Wrap" Text="{Binding Description}" Grid.Row="1" FontSize="15" TextTrimming="CharacterEllipsis"/>
             <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FFFFE8E8">
-                <Rectangle x:Name="RectProgress" Fill="#FF910000" RenderTransformOrigin="0,0.5">
+                <Rectangle x:Name="RectProgress" Fill="#0084ff" RenderTransformOrigin="0,0.5">
                     <Rectangle.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="1"/>
