@@ -9,6 +9,7 @@
         string SignInPath { get; }
         string AppUrl { get; }
         string SignInUrl { get; }
+        string ExternalAllowedUrl { get; }
         string UserAgent { get; }
     }
 }

@@ -36,14 +36,14 @@ namespace Messenger.Lib.Services.JsBindings
             if (newTitle == null)
                 return;
             
-            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(newTitle));
+            // TODO: Find a better way to do this.
+            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(newTitle.Substring(0, 400)));
         }
 
         public void UpdateBadge(int badgeCount)
         {
             // Use the corresponding service to update the app's icon overlay.
             this.taskBarOverlayService.UpdateBadgeOverlay(badgeCount);
-            Debug.WriteLine("Update badge {0}", badgeCount);
         }
     }
 }

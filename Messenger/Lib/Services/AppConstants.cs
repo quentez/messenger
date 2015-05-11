@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Deployment.Application;
 using System.IO;
-using System.Windows;
 
 namespace Messenger.Lib.Services
 {
@@ -44,6 +43,7 @@ namespace Messenger.Lib.Services
         public string SignInPath => "/login";
         public string AppUrl => "https://www.messenger.com";
         public string SignInUrl => "https://www.facebook.com/login/messenger_dot_com_iframe";
+        public string ExternalAllowedUrl => "https://www.facebook.com";
 
         public string UserAgent => $"Mozilla/5.0 (Windows NT {this.UserAgentOsVersion}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 {this.UserAgentAppName}";
         public string UserAgentAppName { get; }

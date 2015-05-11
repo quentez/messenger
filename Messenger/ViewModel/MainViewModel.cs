@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using CefSharp;
 using GalaSoft.MvvmLight.Messaging;
 using Messenger.Lib.Infrastructure;
@@ -98,6 +99,7 @@ namespace Messenger.ViewModel
             this.Browser.ExecuteScriptAsync(scriptToInject);
 
             // Display the browser.
+            await Task.Delay(TimeSpan.FromSeconds(.5));
             this.IsLoading = false;
         }
 
@@ -127,7 +129,10 @@ namespace Messenger.ViewModel
                 || request.Url.StartsWith(this.appConstants.SignInUrl))
                 return false;
 
-            // Otherwise: open it externally.
+            // Otherwise, if it's a facebook url, open it externally.
+            if (!request.Url.StartsWith(this.appConstants.ExternalAllowedUrl))
+                return true;
+
             this.externalProcessService.OpenUrl(request.Url);
             return true;
         }

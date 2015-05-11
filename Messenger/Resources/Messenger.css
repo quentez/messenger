@@ -21,3 +21,9 @@
 ._2fug {
     outline: none !important;
 }
+
+/* Hide call buttons. */
+._31tp,
+._31tn {
+    display: none !important;
+}

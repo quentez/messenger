@@ -15,7 +15,7 @@
         WindowState="{Binding Default.WindowState, Mode=TwoWay, Source={StaticResource Settings}}"
         Height="{Binding Default.WindowHeight, Mode=TwoWay, Source={StaticResource Settings}}" 
         Width="{Binding Default.WindowWidth, Mode=TwoWay, Source={StaticResource Settings}}"
-        MinHeight="500" MinWidth="1000">
+        MinHeight="600" MinWidth="700">
     
     <Window.Resources>
         <uiConverters:ConverterGroup x:Key="InvertedBoolToHeight">
