@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="Messenger.Controls.NotificationItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Messenger.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
+             xmlns:uiAttachedProperties="clr-namespace:Messenger.Lib.UIAttachedProperties"
+             mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Storyboard x:Key="Lifecycle">
+            <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="BorderRoot">
+                <EasingPointKeyFrame KeyTime="0" Value="0.5,0.5"/>
+                <EasingPointKeyFrame KeyTime="0:0:0.5" Value="0.5,0.5"/>
+                <EasingPointKeyFrame KeyTime="0:0:6" Value="0.5,0.5"/>
+            </PointAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="BorderRoot">
+                <EasingDoubleKeyFrame KeyTime="0" Value="340"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="RectProgress">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="BorderRoot">
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="Lifecycle_BeginStoryboard" Storyboard="{StaticResource Lifecycle}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+            <PauseStoryboard BeginStoryboardName="Lifecycle_BeginStoryboard"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+            <ResumeStoryboard BeginStoryboardName="Lifecycle_BeginStoryboard"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Border x:Name="BorderRoot" BorderThickness="1,1,0,1" Background="White" BorderBrush="#FF910000"
+            uiAttachedProperties:StoryboardHelpers.TargetStoryboard="{Binding ., Source={StaticResource Lifecycle}}"
+            uiAttachedProperties:StoryboardHelpers.StoryboardCompleted="{Binding LifecycleCompletedCommand}"
+            Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibility}}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonUp">
+                <command:EventToCommand Command="{Binding ClickCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Border.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Border.RenderTransform>
+        <Grid>
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+            <controls:FrontLogo DataContext="#FF910000" HorizontalAlignment="Left" Margin="10" Grid.RowSpan="2" VerticalAlignment="Center" Width="40"/>
+            <TextBlock Grid.Column="1" Margin="0,10,20,0" Text="{Binding Title}" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13.333" TextTrimming="CharacterEllipsis"/>
+            <TextBlock Grid.Column="1" Margin="0,5,20,10" TextWrapping="Wrap" Text="{Binding Description}" Grid.Row="1" TextTrimming="CharacterEllipsis"/>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FFFFE8E8">
+                <Rectangle x:Name="RectProgress" Fill="#FF910000" RenderTransformOrigin="0,0.5">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

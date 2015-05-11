@@ -1,0 +1,18 @@
+﻿/* Hide persistent cookie checkbox. */
+._43dj {
+    visibility: hidden !important;
+}
+
+/* Hide signin footer. */
+._210n {
+    display: none !important;
+}
+
+/* Remove outline from settings button. */
+._4bl7,
+._36ic,
+._5vn4,
+._30yy,
+._2fug {
+    outline: none !important;
+}

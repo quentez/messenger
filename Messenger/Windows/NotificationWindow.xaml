@@ -1,0 +1,45 @@
+﻿<Window x:Class="Messenger.Windows.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uiConverters="clr-namespace:Messenger.Lib.UIConverters"
+        xmlns:controls="clr-namespace:Messenger.Controls"
+        mc:Ignorable="d"
+        DataContext="{Binding NotificationList, Source={StaticResource Locator}}"
+        Title="NotificationWindow" 
+        WindowStyle="None" 
+        Background="{x:Null}" 
+        AllowsTransparency="True" 
+        Topmost="True" 
+        WindowState="Maximized" 
+        ShowInTaskbar="False"
+        SourceInitialized="Window_SourceInitialized"
+        Closing="Window_OnClosing"
+        Loaded="Window_OnLoaded">
+    
+    <Window.Resources>
+        <uiConverters:VisualIndexToTop x:Key="VisualIndexToTop" ItemHeight="86" SeparatorHeight="10"/>
+    </Window.Resources>
+    
+    <Grid>
+        <ItemsControl HorizontalAlignment="Right" Margin="0,50" Width="330" ItemsSource="{Binding Notifications}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:NotificationItem Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ItemsControl}}" 
+                                               Height="{Binding ItemHeight, Source={StaticResource VisualIndexToTop}}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Top" Value="{Binding VisualIndex, Converter={StaticResource VisualIndexToTop}}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+    </Grid>
+</Window>
