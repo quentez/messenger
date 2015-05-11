@@ -42,6 +42,9 @@ namespace Messenger
             // Open the notifications window.
             var notificationsWindow = new NotificationWindow();
             notificationsWindow.Show();
+            
+            // Focus the main window.
+            mainWindow.Focus();
         }
         private readonly ICefConfigureService cefConfigureService;
 

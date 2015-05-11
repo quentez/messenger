@@ -32,6 +32,9 @@
         <i:EventTrigger EventName="Activated">
             <command:EventToCommand Command="{Binding WindowActivatedCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <command:EventToCommand Command="{Binding WindowLostFocusCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     
     <i:Interaction.Behaviors>

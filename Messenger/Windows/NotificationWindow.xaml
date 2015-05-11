@@ -19,7 +19,7 @@
         Loaded="Window_OnLoaded">
     
     <Window.Resources>
-        <uiConverters:VisualIndexToTop x:Key="VisualIndexToTop" ItemHeight="86" SeparatorHeight="10"/>
+        <uiConverters:VisualIndexToTop x:Key="VisualIndexToTop" ItemHeight="70" SeparatorHeight="10"/>
     </Window.Resources>
     
     <Grid>

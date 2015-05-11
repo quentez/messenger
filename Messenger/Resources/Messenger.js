@@ -57,16 +57,65 @@
         window.messengerWrapper.updateBadge(newBadge);
     };
 
-    // Update the taskbar badge count.
-    var updateBadge = function () {
+    // Act on unread conversations.
+    var lastNotification = null;
+    var updateUnread = function () {
         // Detect the number of conversations with unread messages.
-        var conversations = document.querySelectorAll("._1ht3");
-        notifyBadge(conversations.length);
+        var unreadConversations = document.querySelectorAll("._1ht3");
+
+        // Update the badge accordingly.
+        notifyBadge(unreadConversations.length);
+
+        // If we have more than one, take the first one and trigger a notification.
+        if (unreadConversations.length === 0 || !window.messengerWrapper || !window.messengerWrapper.showNotification) {
+            lastNotification = "";
+            return;
+        }
+
+        var firstUnreadConversation = unreadConversations[0];
+
+        // Find the title.
+        var titleObject = firstUnreadConversation.querySelector("._1ht6");
+        if (!titleObject)
+            return;
+
+        var title = titleObject.textContent;
+
+        // Find the subtitle.
+        var subtitleObject = firstUnreadConversation.querySelector("._1htf");
+        var subTitle = subtitleObject ? subtitleObject.textContent : "";
+
+        // Find the conversation id.
+        var idObject = document.querySelector("._1ht1._1ht3");
+        var id = idObject ? idObject.getAttribute("data-reactid") : "";
+
+        // Check if we already notified for this.
+        var signature = title + subTitle + id;
+        if (signature === lastNotification)
+            return;
+
+        // If this is the first run, don't send an actual notification.
+        var firstRun = lastNotification === null;
+
+        // Update the last signature and call the Api.
+        lastNotification = signature;
+
+        if (firstRun)
+            return;
+
+        window.messengerWrapper.showNotification(title, subTitle, id);
     };
 
     // Add functions to the window object for wrapper interop.
     window.messengerApi = {
-        initialize: function() {
+        selectConversation: function (id) {
+            // Find the corresponding conversation list item.
+            var conversationObject = document.querySelector("[data-reactid=\"" + id + "\"] a");
+            if (!conversationObject)
+                return;
+
+            // Simulate a click on the corresponding conversation.
+            conversationObject.click();
         }
     };
 
@@ -76,7 +125,7 @@
     // Update the title and the badge every 200ms.
     setInterval(function () {
         updateTitle();
-        updateBadge();
+        updateUnread();
         checkPersistent();
     }, 200);
 })();

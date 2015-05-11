@@ -6,5 +6,6 @@ namespace Messenger.Lib.Services
     public interface IJsBridgeService
     {
         T RegisterBrowser<T>(ChromiumWebBrowser browser) where T : IJsBinding;
+        void SelectConversation(string conversationId);
     }
 }

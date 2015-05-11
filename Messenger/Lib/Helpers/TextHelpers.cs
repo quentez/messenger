@@ -1,4 +1,6 @@
-﻿namespace Messenger.Lib.Helpers
+﻿using System;
+
+namespace Messenger.Lib.Helpers
 {
     class TextHelpers : ITextHelpers
     {
@@ -8,6 +10,15 @@
             return src?
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"");
+        }
+
+        public string SanitizeInput(string src)
+        {
+            src = src.Trim();
+            src = src.Replace(Environment.NewLine, " ");
+            src = src.Substring(0, Math.Min(400, src.Length));
+
+            return src;
         }
     }
 }

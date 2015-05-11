@@ -42,6 +42,11 @@ namespace Messenger.ViewModel
                 // Focus browser on UI thread.
                 DispatcherHelper.RunAsync(() => this.Browser.SetFocus(true));
             });
+            this.WindowLostFocusCommand = new RelayCommand(() =>
+            {
+                // Unfocus browser on UI thread.
+                DispatcherHelper.RunAsync(() => this.Browser.SetFocus(false));
+            });
             this.ClosedCommand = new RelayCommand<Window>(window =>
             {
                 // Dispose the browser when the window gets closed.
@@ -112,6 +117,11 @@ namespace Messenger.ViewModel
         /// Focuses the browser when the window gets activated.
         /// </summary>
         public RelayCommand WindowActivatedCommand { get; }
+
+        /// <summary>
+        /// Called when the Window loses focus.
+        /// </summary>
+        public RelayCommand WindowLostFocusCommand { get; }
 
         /// <summary>
         /// Called when the Window was closed.

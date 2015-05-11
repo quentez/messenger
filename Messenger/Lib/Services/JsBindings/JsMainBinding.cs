@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Messenger.Lib.Helpers;
 using Messenger.Lib.Infrastructure;
 using Messenger.ViewModel;
 
@@ -10,26 +9,35 @@ namespace Messenger.Lib.Services.JsBindings
         public JsMainBinding(ITaskBarOverlayService taskBarOverlayService, 
             INotificationsService notificationsService, 
             IViewModelFactory viewModelFactory, 
-            IDispatcherService dispatcherService)
+            IDispatcherService dispatcherService, 
+            ITextHelpers textHelpers)
         {
             Ensure.Argument.IsNotNull(taskBarOverlayService, nameof(taskBarOverlayService));
             Ensure.Argument.IsNotNull(notificationsService, nameof(notificationsService));
+            Ensure.Argument.IsNotNull(viewModelFactory, nameof(viewModelFactory));
+            Ensure.Argument.IsNotNull(dispatcherService, nameof(dispatcherService));
+            Ensure.Argument.IsNotNull(textHelpers, nameof(textHelpers));
 
             this.taskBarOverlayService = taskBarOverlayService;
             this.notificationsService = notificationsService;
             this.viewModelFactory = viewModelFactory;
             this.dispatcherService = dispatcherService;
+            this.textHelpers = textHelpers;
         }
 
         private readonly ITaskBarOverlayService taskBarOverlayService;
         private readonly INotificationsService notificationsService;
         private readonly IViewModelFactory viewModelFactory;
         private readonly IDispatcherService dispatcherService;
+        private readonly ITextHelpers textHelpers;
 
-        public void ShowNotification(string title, string description, string link)
+        public void ShowNotification(string title, string description, string conversationId)
         {
             // Use the notifications service to display this notification on the desktop.
-            this.notificationsService.ShowNotification(title, description, link);
+            this.notificationsService.ShowNotification(
+                this.textHelpers.SanitizeInput(title), 
+                this.textHelpers.SanitizeInput(description), 
+                this.textHelpers.SanitizeInput(conversationId));
         }
 
         public void UpdateTitle(string newTitle)
@@ -38,9 +46,7 @@ namespace Messenger.Lib.Services.JsBindings
                 return;
             
             // TODO: Find a better way to do this.
-            newTitle = newTitle.Trim();
-            newTitle = newTitle.Substring(0, Math.Min(400, newTitle.Length));
-            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(newTitle));
+            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(this.textHelpers.SanitizeInput(newTitle)));
         }
 
         public void UpdateBadge(int badgeCount)

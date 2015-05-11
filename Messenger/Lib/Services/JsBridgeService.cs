@@ -63,6 +63,12 @@ namespace Messenger.Lib.Services
             return binding;
         }
 
+        public void SelectConversation(string conversationId)
+        { 
+            // Call the SelectConversation method on the main browser.
+            this.mainBrowser?.ExecuteScriptAsync($"window.messengerApi.selectConversation(\"{this.textHelpers.JsEscape(conversationId)}\");");
+        }
+
         #endregion
     }
 }

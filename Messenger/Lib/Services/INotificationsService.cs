@@ -2,6 +2,6 @@
 {
     public interface INotificationsService
     {
-        void ShowNotification(string title, string description, string link);
+        void ShowNotification(string title, string description, string conversationId);
     }
 }

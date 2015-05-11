@@ -27,13 +27,13 @@ namespace Messenger.Lib.Services
         private readonly IWindowService windowService;
         private readonly IViewModelFactory viewModelFactory;
 
-        public void ShowNotification(string title, string description, string link)
+        public void ShowNotification(string title, string description, string conversationId)
         {
             // Get the singleton Notifications ViewModel and add the notification.
             this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<NotificationListViewModel>().AddNotification(title, description, () =>
             {
                 // On click, open the link in the main browser using the JS bridge.
-                //this.jsBridgeService.Open(link);
+                this.jsBridgeService.SelectConversation(conversationId);
 
                 // Then bring the main window to the front.
                 this.windowService.ActivateMainWindow();
