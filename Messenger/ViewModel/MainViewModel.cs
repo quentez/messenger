@@ -95,7 +95,7 @@ namespace Messenger.ViewModel
             // Display the browser.
             await Task.Delay(TimeSpan.FromSeconds(.5));
             this.IsLoading = false;
-            this.Browser.SetFocus(false);
+            this.Browser.SetFocus(true);
         }
 
         #endregion
