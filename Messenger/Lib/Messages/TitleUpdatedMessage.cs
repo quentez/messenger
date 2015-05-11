@@ -1,6 +1,6 @@
 ﻿namespace Messenger.Lib.Messages
 {
-    public class UserSignedOutMessage
-    { 
+    public class TitleUpdatedMessage
+    {
     }
 }

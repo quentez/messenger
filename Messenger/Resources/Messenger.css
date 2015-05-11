@@ -1,4 +1,9 @@
-﻿/* Hide persistent cookie checkbox. */
+﻿/* Hide top banner. */
+._s15 {
+    display: none !important;
+}
+
+/* Hide persistent cookie checkbox. */
 ._43dj {
     visibility: hidden !important;
 }

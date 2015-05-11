@@ -1,29 +1,29 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Messenger.Lib.Infrastructure;
-using Messenger.Lib.Services;
+using Messenger.ViewModel;
 
-namespace FrontApp.Lib.Services.JsBindings
+namespace Messenger.Lib.Services.JsBindings
 {
     class JsMainBinding : JsBinding, IJsMainBinding
     {
         public JsMainBinding(ITaskBarOverlayService taskBarOverlayService, 
             INotificationsService notificationsService, 
-            IPreloadCacheService preloadCacheService)
+            IViewModelFactory viewModelFactory, 
+            IDispatcherService dispatcherService)
         {
             Ensure.Argument.IsNotNull(taskBarOverlayService, nameof(taskBarOverlayService));
             Ensure.Argument.IsNotNull(notificationsService, nameof(notificationsService));
-            Ensure.Argument.IsNotNull(preloadCacheService, nameof(preloadCacheService));
 
             this.taskBarOverlayService = taskBarOverlayService;
             this.notificationsService = notificationsService;
-            this.preloadCacheService = preloadCacheService;
+            this.viewModelFactory = viewModelFactory;
+            this.dispatcherService = dispatcherService;
         }
 
         private readonly ITaskBarOverlayService taskBarOverlayService;
         private readonly INotificationsService notificationsService;
-        private readonly IPreloadCacheService preloadCacheService;
+        private readonly IViewModelFactory viewModelFactory;
+        private readonly IDispatcherService dispatcherService;
 
         public void ShowNotification(string title, string description, string link)
         {
@@ -31,46 +31,19 @@ namespace FrontApp.Lib.Services.JsBindings
             this.notificationsService.ShowNotification(title, description, link);
         }
 
-        public void UpdateBadge(string badgeCount)
+        public void UpdateTitle(string newTitle)
+        {
+            if (newTitle == null)
+                return;
+            
+            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(newTitle));
+        }
+
+        public void UpdateBadge(int badgeCount)
         {
             // Use the corresponding service to update the app's icon overlay.
             this.taskBarOverlayService.UpdateBadgeOverlay(badgeCount);
-        }
-
-        public void PreloadResource(string resource, string route)
-        {
-            Ensure.Argument.IsNotNullOrWhiteSpace(resource, nameof(resource));
-            Ensure.Argument.IsNotNull(route, nameof(route));
-
-            // Create a Uri using the provided resource.
-            var appUri = new Uri(this.AppConstants.AppUrl);
-            Uri resourceUri;
-            if (!Uri.TryCreate(appUri, resource, out resourceUri))
-            {
-                return;
-            }
-
-            // Create a regular expression using the provided route.
-            if (route.StartsWith("/"))
-            {
-                route = this.AppConstants.AppUrl + route;
-            }
-            route = route
-                .Replace("/", "\\/")
-                .Replace("?", "\\?");
-
-            Regex routeRegex;
-            try
-            {
-                routeRegex = new Regex(route);
-            }
-            catch
-            {
-                return;
-            }
-
-            // Preload this resource using the corresponding service.
-            Task.Run(() => this.preloadCacheService.AddAndPreloadResourceAsync(routeRegex, resourceUri));
+            Debug.WriteLine("Update badge {0}", badgeCount);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
-using FrontApp.Lib.Services.JsBindings;
 using Messenger.Lib.Helpers;
 using Messenger.Lib.Infrastructure;
 using Messenger.Lib.Services.JsBindings;
@@ -59,7 +58,7 @@ namespace Messenger.Lib.Services
             }
 
             // Register the browser with this binding.
-            browser.RegisterJsObject("dotnet", binding);
+            browser.RegisterJsObject("messengerWrapper", binding);
 
             return binding;
         }

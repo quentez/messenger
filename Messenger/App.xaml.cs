@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using FrontApp.Lib.Services.JsBindings;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using Messenger.Lib.Helpers;
 using Messenger.Lib.Services;
+using Messenger.Lib.Services.JsBindings;
 using Messenger.Lib.UIServices;
 using Messenger.Properties;
 using Messenger.ViewModel;
@@ -59,7 +59,6 @@ namespace Messenger
             c.RegisterType<IExternalProcessService, ExternalProcessService>(new ContainerControlledLifetimeManager());
             c.RegisterType<ITaskBarOverlayService, TaskBarOverlayService>(new ContainerControlledLifetimeManager());
             c.RegisterType<INotificationsService, NotificationsService>(new ContainerControlledLifetimeManager());
-            c.RegisterType<IPreloadCacheService, PreloadCacheService>(new ContainerControlledLifetimeManager());
             c.RegisterType<IViewModelFactory, ViewModelFactory>(new ContainerControlledLifetimeManager());
             c.RegisterType<IJsBindingFactory, JsBindingFactory>(new ContainerControlledLifetimeManager());
             c.RegisterType<IJsMainBinding, JsMainBinding>(new TransientLifetimeManager());
@@ -71,6 +70,7 @@ namespace Messenger
             c.RegisterType<IMessenger, GalaSoft.MvvmLight.Messaging.Messenger>(new ContainerControlledLifetimeManager());
 
             // ViewModels.
+            c.RegisterType<MainViewModel, MainViewModel>(new ContainerControlledLifetimeManager());
             c.RegisterType<NotificationListViewModel, NotificationListViewModel>(new ContainerControlledLifetimeManager());
         }
 

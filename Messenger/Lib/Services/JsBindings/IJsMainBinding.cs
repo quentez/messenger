@@ -1,6 +1,4 @@
-﻿using Messenger.Lib.Services.JsBindings;
-
-namespace FrontApp.Lib.Services.JsBindings
+﻿namespace Messenger.Lib.Services.JsBindings
 {
     public interface IJsMainBinding : IJsBinding
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Threading;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Messenger.Lib.Services
@@ -9,11 +8,6 @@ namespace Messenger.Lib.Services
         public void RunOnMainThead(Action action)
         {
             DispatcherHelper.RunAsync(action);
-        }
-
-        public void RunAllRenderTasks()
-        {
-            Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Loaded, new Action(() => { }));
         }
     }
 }

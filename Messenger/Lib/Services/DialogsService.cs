@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using FrontApp.Lib.Services.Interop;
+using Messenger.Lib.Services.Interop;
 using Window = System.Windows.Window;
 
 namespace Messenger.Lib.Services

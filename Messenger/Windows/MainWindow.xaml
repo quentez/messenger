@@ -10,7 +10,7 @@
         xmlns:uiBehaviors="clr-namespace:Messenger.Lib.UIBehaviors"
         mc:Ignorable="d"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
-        Title="Messenger"
+        Title="{Binding Title}"
         x:Name="MainWindowElement"
         WindowState="{Binding Default.WindowState, Mode=TwoWay, Source={StaticResource Settings}}"
         Height="{Binding Default.WindowHeight, Mode=TwoWay, Source={StaticResource Settings}}" 

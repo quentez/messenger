@@ -6,6 +6,6 @@ namespace Messenger.Lib.Services
     public interface ITaskBarOverlayService : INotifyPropertyChanged
     {
         ImageSource TaskBarOverlay { get; }
-        void UpdateBadgeOverlay(string newUnreadCount);
+        void UpdateBadgeOverlay(int newUnreadCount);
     }
 }

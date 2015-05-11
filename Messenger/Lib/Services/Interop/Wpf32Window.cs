@@ -4,7 +4,7 @@ using System.Windows.Interop;
 using Messenger.Lib.Infrastructure;
 using IWin32Window = System.Windows.Forms.IWin32Window;
 
-namespace FrontApp.Lib.Services.Interop
+namespace Messenger.Lib.Services.Interop
 {
     public class Wpf32Window : IWin32Window
     {

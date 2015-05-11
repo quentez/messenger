@@ -206,7 +206,7 @@
     <Compile Include="Lib\Helpers\ITextHelpers.cs" />
     <Compile Include="Lib\Helpers\TextHelpers.cs" />
     <Compile Include="Lib\Infrastructure\Ensure.cs" />
-    <Compile Include="Lib\Messages\UserSignedOutMessage.cs" />
+    <Compile Include="Lib\Messages\TitleUpdatedMessage.cs" />
     <Compile Include="Lib\Services\AppConstants.cs" />
     <Compile Include="Lib\Services\DialogsService.cs" />
     <Compile Include="Lib\Services\DispatcherService.cs" />
@@ -221,7 +221,6 @@
     <Compile Include="Lib\Services\InjectScriptService.cs" />
     <Compile Include="Lib\Services\INotificationsService.cs" />
     <Compile Include="Lib\Services\Interop\Wpf32Window.cs" />
-    <Compile Include="Lib\Services\IPreloadCacheService.cs" />
     <Compile Include="Lib\Services\ITaskBarOverlayService.cs" />
     <Compile Include="Lib\Services\JsBindings\IJsBindingFactory.cs" />
     <Compile Include="Lib\Services\JsBindings\IJsMainBinding.cs" />
@@ -232,7 +231,6 @@
     <Compile Include="Lib\Services\JsBridgeService.cs" />
     <Compile Include="Lib\Services\JsonService.cs" />
     <Compile Include="Lib\Services\NotificationsService.cs" />
-    <Compile Include="Lib\Services\PreloadCacheService.cs" />
     <Compile Include="Lib\Services\TaskBarOverlayService.cs" />
     <Compile Include="Lib\UIAttachedProperties\StoryboardHelpers.cs" />
     <Compile Include="Lib\UIBehaviors\AttachChild.cs" />
@@ -308,7 +306,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

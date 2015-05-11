@@ -1,8 +1,7 @@
 ﻿using Messenger.Lib.Infrastructure;
-using Messenger.Lib.Services.JsBindings;
 using Microsoft.Practices.Unity;
 
-namespace FrontApp.Lib.Services.JsBindings
+namespace Messenger.Lib.Services.JsBindings
 {
     class JsBindingFactory : IJsBindingFactory
     {

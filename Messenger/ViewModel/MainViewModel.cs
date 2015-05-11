@@ -1,10 +1,10 @@
 using System;
 using CefSharp;
-using FrontApp.Lib.Services.JsBindings;
 using GalaSoft.MvvmLight.Messaging;
 using Messenger.Lib.Infrastructure;
 using Messenger.Lib.Messages;
 using Messenger.Lib.Services;
+using Messenger.Lib.Services.JsBindings;
 
 namespace Messenger.ViewModel
 {
@@ -43,18 +43,20 @@ namespace Messenger.ViewModel
             this.Browser.FrameLoadStart += this.Browser_FrameLoadStart;
             this.Browser.FrameLoadEnd += this.Browser_FrameLoadEnd;
 
-            // Register for signout messages.
-            messenger.Register(this, new Action<UserSignedOutMessage>(message =>
-            {
-                // When the user signs out, return to signin page.
-                this.Browser.Reload();
-            }));
+            // Set the default title.
+            this.SetSubtitle();
         }
 
         private readonly IExternalProcessService externalProcessService;
         private readonly IInjectScriptService injectScriptService;
         private readonly IAppConstants appConstants;
         private bool isLoading;
+        private string title;
+
+        public void SetSubtitle(string subtitle = null)
+        {
+            this.Title = "Messenger" + (string.IsNullOrWhiteSpace(subtitle) ? string.Empty : " - " + subtitle);
+        }
 
         #endregion
 
@@ -64,6 +66,12 @@ namespace Messenger.ViewModel
         {
             get { return this.isLoading; }
             set { this.Set(() => this.IsLoading, ref this.isLoading, value); }
+        }
+
+        public string Title
+        {
+            get { return this.title; }
+            set { this.Set(() => this.Title, ref this.title, value); }
         }
 
         public ITaskBarOverlayService TaskBar { get; }
@@ -77,18 +85,18 @@ namespace Messenger.ViewModel
             // Make sure we only inject in the main frame.
             if (!frameLoadStartEventArgs.IsMainFrame)
                 return;
-
-            // Inject our custom script in the page.
-            var scriptToInject = await this.injectScriptService.GetScriptAsync();
-            this.Browser.ExecuteScriptAsync(scriptToInject);
         }
 
-        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs frameLoadEndEventArgs)
+        private async void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs frameLoadEndEventArgs)
         {
             // Display the browser after the main page is loaded.
             if (!frameLoadEndEventArgs.IsMainFrame)
                 return;
-            
+
+            // Inject our custom script in the page.
+            var scriptToInject = await this.injectScriptService.GetScriptAsync();
+            this.Browser.ExecuteScriptAsync(scriptToInject);
+
             // Display the browser.
             this.IsLoading = false;
         }
