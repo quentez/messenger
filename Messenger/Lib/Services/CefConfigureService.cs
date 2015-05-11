@@ -37,7 +37,8 @@ namespace Messenger.Lib.Services
             //settings.CefCommandLineArgs.Add("renderer-process-limit", "1");
             //settings.CefCommandLineArgs.Add("renderer-startup-dialog", "renderer-startup-dialog");
             //settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
-           
+            settings.CefCommandLineArgs.Add("enable-media-stream", "enable-media-stream");
+
             // Try to initialize the CEF component.
             if (!Cef.Initialize(settings))
             {

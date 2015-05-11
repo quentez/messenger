@@ -40,7 +40,6 @@ namespace Messenger.ViewModel
             this.BaseUrl = this.appConstants.AppUrl + this.appConstants.SignInPath;
 
             // Register events on the browser.
-            this.Browser.FrameLoadStart += this.Browser_FrameLoadStart;
             this.Browser.FrameLoadEnd += this.Browser_FrameLoadEnd;
 
             // Set the default title.
@@ -79,13 +78,6 @@ namespace Messenger.ViewModel
         #endregion
 
         #region Event handlers.
-
-        private async void Browser_FrameLoadStart(object sender, FrameLoadStartEventArgs frameLoadStartEventArgs)
-        {
-            // Make sure we only inject in the main frame.
-            if (!frameLoadStartEventArgs.IsMainFrame)
-                return;
-        }
 
         private async void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs frameLoadEndEventArgs)
         {

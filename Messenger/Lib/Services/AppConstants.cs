@@ -45,7 +45,7 @@ namespace Messenger.Lib.Services
         public string SignInUrl => "https://www.facebook.com/login/messenger_dot_com_iframe";
         public string ExternalAllowedUrl => "https://www.facebook.com";
 
-        public string UserAgent => $"Mozilla/5.0 (Windows NT {this.UserAgentOsVersion}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 {this.UserAgentAppName}";
+        public string UserAgent => $"Mozilla/5.0 (Windows NT {this.UserAgentOsVersion}) {this.UserAgentAppName}";
         public string UserAgentAppName { get; }
         public string UserAgentOsVersion => $"{Environment.OSVersion.Version.Major}.{Environment.OSVersion.Version.Minor}";
     }
