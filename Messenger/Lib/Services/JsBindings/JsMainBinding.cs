@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Messenger.Lib.Infrastructure;
 using Messenger.ViewModel;
 
@@ -37,7 +38,9 @@ namespace Messenger.Lib.Services.JsBindings
                 return;
             
             // TODO: Find a better way to do this.
-            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(newTitle.Substring(0, 400)));
+            newTitle = newTitle.Trim();
+            newTitle = newTitle.Substring(0, Math.Min(400, newTitle.Length));
+            this.dispatcherService.RunOnMainThead(() => this.viewModelFactory.Resolve<MainViewModel>().SetSubtitle(newTitle));
         }
 
         public void UpdateBadge(int badgeCount)

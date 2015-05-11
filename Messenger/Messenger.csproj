@@ -206,7 +206,6 @@
     <Compile Include="Lib\Helpers\ITextHelpers.cs" />
     <Compile Include="Lib\Helpers\TextHelpers.cs" />
     <Compile Include="Lib\Infrastructure\Ensure.cs" />
-    <Compile Include="Lib\Messages\TitleUpdatedMessage.cs" />
     <Compile Include="Lib\Services\AppConstants.cs" />
     <Compile Include="Lib\Services\DialogsService.cs" />
     <Compile Include="Lib\Services\DispatcherService.cs" />

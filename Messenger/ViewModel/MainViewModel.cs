@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CefSharp;
 using GalaSoft.MvvmLight.Messaging;
 using Messenger.Lib.Infrastructure;
-using Messenger.Lib.Messages;
 using Messenger.Lib.Services;
 using Messenger.Lib.Services.JsBindings;
 
